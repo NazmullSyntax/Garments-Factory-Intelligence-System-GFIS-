@@ -1,0 +1,23 @@
+﻿# GFIS v0.1 — Core dependencies (pinned for reproducibility)
+# Python 3.11+ required
+
+# Data
+pandas==2.2.2
+numpy==1.26.4
+pyarrow==16.1.0
+
+# Database
+duckdb==1.0.0
+
+# Visualization
+matplotlib==3.8.4
+plotly==5.22.0
+
+# Dashboard
+streamlit==1.36.0
+
+# Utilities
+python-dotenv==1.0.1
+
+# Dev / testing
+pytest==8.2.2
