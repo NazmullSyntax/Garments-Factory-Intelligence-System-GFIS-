@@ -1,4 +1,3 @@
-@'
 # GFIS — Data Dictionary (v0.2)
 
 **Status:** Draft — locked after Day 2 review
