@@ -59,8 +59,8 @@ try:
         f"got {TARGET_ACHIEVEMENT_PCT}",
     )
     check(
-        "ID_PREFIX has 17 keys",
-        len(ID_PREFIX) == 17,
+        "ID_PREFIX has 18 keys",
+        len(ID_PREFIX) == 18,
         f"got {len(ID_PREFIX)}",
     )
     check(
