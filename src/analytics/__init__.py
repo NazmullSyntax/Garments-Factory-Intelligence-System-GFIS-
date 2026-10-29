@@ -1,0 +1,1 @@
+"""GFIS analytics package — KPI computations from DuckDB."""
