@@ -43,3 +43,24 @@ whether the factory delivered what it promised to deliver.
 −2 % of 100 000 is 2 000 pcs, worth chasing; −2 % of 500 is 10 pcs, ignore.
 
 **Formula:**
+
+
+**Worked example:** `1450 − 1500 = −50 pcs` (shortfall).
+
+**Interpretation:**
+- Negative = shortfall (recover or escalate).
+- Positive = overproduction (may indicate plan too conservative).
+- Zero = exactly on plan (rare; suspicious if recurring).
+
+**Common mistakes:** confusing sign. Negative means **under**-plan.
+
+---
+
+## 3. Line Efficiency % (SAM-based)
+
+**Business meaning:** Of the labor minutes actually spent, how many were
+"standard minutes" of work actually produced? A 65 % efficiency means
+35 % of the labor hour didn't translate into standard work — waiting, rework,
+walking, or finding materials.
+
+**Formula:**
