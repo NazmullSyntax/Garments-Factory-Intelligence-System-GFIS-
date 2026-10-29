@@ -102,4 +102,67 @@ check("production_daily: good + reject = actual",
 check("quality_inspection: defective <= inspected",
       (qc["defective_qty"] <= qc["inspected_qty"]).all())
 
-check("quality_in
+check("quality_inspection: rework + rejected <= defective",
+      (qc["rework_qty"] + qc["rejected_qty"] <= qc["defective_qty"]).all())
+
+dt = dfs["machine_downtime"]
+check("machine_downtime: duration > 0",
+      (dt["duration_minutes"] > 0).all())
+
+check("shipments: on_time = (ship <= promised)",
+      (shp["on_time"] == (pd.to_datetime(shp["ship_date"]) <=
+                          pd.to_datetime(shp["promised_date"]))).all())
+
+check("sales_revenue: recognized <= invoice",
+      (rev["recognized_amount_usd"] <= rev["invoice_amount_usd"]).all())
+
+check("sales_revenue: cash <= recognized",
+      (rev["cash_received_usd"] <= rev["recognized_amount_usd"]).all())
+
+la = dfs["labor_attendance"]
+expected_wage = (
+    la["hours_worked"] * la["wage_rate_usd_per_hour"]
+    + la["overtime_hours"] * la["wage_rate_usd_per_hour"] * 1.5
+)
+check("labor_attendance: wage = hours*rate + OT*rate*1.5",
+      ((la["total_wage_usd"] - expected_wage).abs() < 0.02).all())
+
+# --- Scenario coverage ---
+# Need at least 1 shortfall
+shortfall = int((pd_["actual_qty"] < pd_["planned_qty"]).sum())
+check("at least 1 production shortfall day",
+      shortfall >= 1, f"{shortfall} shortfall rows")
+
+# Need at least 1 late shipment
+late = int((~shp["on_time"]).sum())
+check("at least 1 late shipment", late >= 1, f"{late} late")
+
+# Need at least 1 outstanding receivable
+pending = int(((rev["cash_received_usd"] < rev["recognized_amount_usd"])).sum())
+check("at least 1 outstanding receivable", pending >= 1, f"{pending} pending")
+
+# Need downtime variety
+check("downtime has >=3 distinct reasons",
+      dt["reason_category"].nunique() >= 3,
+      f"{dt['reason_category'].nunique()} reasons")
+
+# --- Date sanity ---
+for name in ["production_daily", "quality_inspection", "expenses"]:
+    df = dfs[name]
+    date_col = {"production_daily": "production_date",
+                "quality_inspection": "inspection_date",
+                "expenses": "expense_date"}[name]
+    dates = pd.to_datetime(df[date_col])
+    check(f"{name}: no future dates",
+          (dates <= pd.Timestamp.today()).all())
+
+# --- Summary ---
+print("\n" + "=" * 50)
+print(f"RESULT: {ok} passed, {fail} failed")
+print("=" * 50)
+if fail == 0:
+    print("✅ Day 4 transactional data verified.")
+    sys.exit(0)
+else:
+    print("❌ Fix items above, then re-run verify_transactional_data.py")
+    sys.exit(1)
