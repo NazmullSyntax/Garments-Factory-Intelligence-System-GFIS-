@@ -13,3 +13,33 @@
 whether the factory delivered what it promised to deliver.
 
 **Formula:**
+
+
+**Numerator:** total pieces actually produced (includes rejects — the plan asked for pieces, not good pieces).
+**Denominator:** total pieces planned.
+
+**Worked example:**
+3 days on LN-01, planned 500+500+500 = 1500; actual 480+510+460 = 1450.
+→ `(1450 / 1500) × 100 = 96.67 %`
+
+**Thresholds:**
+- ≥ 95 % healthy
+- 90 – 95 % watch
+- < 90 % escalation
+
+**Common mistakes:**
+- Averaging daily percentages. Always **sum raw quantities first**.
+- Using `good_qty` instead of `actual_qty`. Plan counts what was made, not what passed.
+
+**Limitations:**
+- Cannot distinguish "line was shut down" from "line was slow". Pair with KPI 5 (OT)
+  and downtime data to diagnose.
+
+---
+
+## 2. Production Variance (pcs)
+
+**Business meaning:** The size of the shortfall in pieces. Percentages hide scale —
+−2 % of 100 000 is 2 000 pcs, worth chasing; −2 % of 500 is 10 pcs, ignore.
+
+**Formula:**
