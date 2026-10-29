@@ -1,4 +1,7 @@
 # Python
+# DuckDB (generated)
+data/*.duckdb
+data/*.duckdb.wal
 __pycache__/
 *.py[cod]
 *.so
